@@ -182,6 +182,10 @@ Para rodar o projeto localmente ou via Docker, siga os passos abaixo:
    dotnet run --project PrjPriceTableLoanSimulation.ProcessingAPI/PrjPriceTableLoanSimulation.ProcessingAPI.csproj
    ```
    
+   [Swagger WebAPI](http://localhost:5181/swagger/index.html)
+   
+   [Swagger ProcessingAPI](http://localhost:5170/swagger/index.html)
+
 Obs. 1: Para rodar localmente deve ter instalado e configurado o RabbitMQ e o SQL Server.
 
 Obs. 2: Para execução local deve ser executado o projeto WebAPI e ProcessingAPI.
