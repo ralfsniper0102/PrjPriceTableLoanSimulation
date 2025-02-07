@@ -153,7 +153,7 @@ Para rodar o projeto localmente ou via Docker, siga os passos abaixo:
 ## 3. Requisitos
 - **.NET 8 SDK** - Baixe e instale a versão mais recente do .NET 8 SDK.
 - **Docker** - Instale o Docker para rodar os containers.
-- **PostgreSQL** - O banco de dados PostgreSQL precisa estar rodando na máquina local ou em um container Docker.
+- **SQL Server** - O banco de dados SQL Server precisa estar rodando na máquina local ou em um container Docker.
 
 ## 4. Rodando o Projeto Localmente
 
