@@ -1,0 +1,75 @@
+services:
+  processing_api:
+    build:
+      context: .
+      dockerfile: PrjPriceTableLoanSimulation.ProcessingAPI/Dockerfile
+    ports:
+      - "5000:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__ConnStr: "Server=mssql;Database=myDatabase;User ID=sa;Password=123456aA;TrustServerCertificate=True;"
+      RabbitMqSettings__HostName: "rabbitmq"
+      RabbitMqSettings__Port: "5672"
+      RabbitMqSettings__RequestQueueName: "request_queue"
+      RabbitMqSettings__ResponseQueueName: "response_queue"
+    depends_on:
+      - mssql
+      - rabbitmq
+    links:
+      - mssql:mssql
+
+  web_api:
+    build:
+      context: .
+      dockerfile: PrjPriceTableLoanSimulation.WebAPI/Dockerfile
+    ports:
+      - "5001:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__ConnStr: "Server=mssql;Database=myDatabase;User ID=sa;Password=123456aA;TrustServerCertificate=True;"
+      RabbitMqSettings__HostName: "rabbitmq"
+      RabbitMqSettings__Port: "5672"
+      RabbitMqSettings__RequestQueueName: "request_queue"
+      RabbitMqSettings__ResponseQueueName: "response_queue"
+    depends_on:
+      - mssql
+      - rabbitmq
+    links:
+    - mssql:mssql
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: "123456aA"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql_proj_process_orders:/var/opt/mssql
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: "1.0"
+        reservations:
+          memory: 512M
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: "0.5"
+        reservations:
+          memory: 256M
+
+volumes:
+  mssql_proj_process_orders:
+    driver: local
