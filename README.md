@@ -1,4 +1,4 @@
-﻿# Sistema de Simulação de Emprestimo 🛒
+﻿# Sistema de Simulação de Emprestimo
 
 Este projeto é um sistema de backend para **Simulação de empréstimo**, implementado com **Clean Architecture**, **.NET 8**, **RabbitMQ com RPC**, **Mediator**, e **Entity Framework**.
 
